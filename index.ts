@@ -139,4 +139,6 @@ class TvMaze {
   }
 }
 
-export default new TvMaze()
+const tvmaze = new TvMaze()
+
+export = tvmaze

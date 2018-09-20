@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request");
 const apiEndpoint = 'https://api.tvmaze.com';
 class Common {
@@ -126,4 +125,4 @@ class TvMaze {
         return Common.apiQuery('/schedule/full');
     }
 }
-exports.default = new TvMaze();
+module.exports = new TvMaze();

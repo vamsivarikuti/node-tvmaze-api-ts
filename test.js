@@ -1,6 +1,6 @@
-// import tvmaze from '.'
-const tvmaze = require('.');
-console.log(tvmaze);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tvmaze = require(".index");
 tvmaze.search.shows('girls').then(result => {
     if (result[0].show) {
         console.log('👍 API::search::shows');
