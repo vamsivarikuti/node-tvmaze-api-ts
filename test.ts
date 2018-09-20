@@ -1,4 +1,4 @@
-import tvmaze from './index'
+import tvmaze from '.'
 
 tvmaze.search.shows('girls').then(result => {
   if (result[0].show) {

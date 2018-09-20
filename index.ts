@@ -1,7 +1,7 @@
 import * as request from 'request'
 import { IlookupShows } from 'index.d'
 
-export const apiEndpoint = 'https://api.tvmaze.com'
+const apiEndpoint = 'https://api.tvmaze.com'
 
 class Common {
   public static apiQuery (url: string): Promise<any> {
@@ -14,7 +14,7 @@ class Common {
   }
 }
 
-export class Search {
+class Search {
   public shows (query: string) {
     return Common.apiQuery(`/search/shows?q=${query}`)
   }
@@ -23,13 +23,13 @@ export class Search {
   }
 }
 
-export class SingleSearch {
+class SingleSearch {
   public shows (query: string) {
     return Common.apiQuery(`/singlesearch/shows?q=${query}`)
   }
 }
 
-export class Lookup {
+class Lookup {
   public shows: IlookupShows = class {
     public static imdb (imdbId: string) {
       return Common.apiQuery(`/lookup/shows?imdb=${imdbId}`)
@@ -46,7 +46,7 @@ export class Lookup {
   }
 }
 
-export class Shows {
+class Shows {
   public get (id: string, embeded?: string | string[]) {
     let queryString = `/shows/${id}`
     if (embeded) {
@@ -106,7 +106,7 @@ export class Shows {
   }
 }
 
-export class People {
+class People {
   public get (id: string) {
     return Common.apiQuery(`/people/${id}`)
   }
@@ -120,7 +120,7 @@ export class People {
   }
 }
 
-export class TvMaze {
+class TvMaze {
   public search = new Search()
   public singleSearch = new SingleSearch()
   public lookup = new Lookup()

@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request");
-exports.apiEndpoint = 'https://api.tvmaze.com';
+const apiEndpoint = 'https://api.tvmaze.com';
 class Common {
     static apiQuery(url) {
         return new Promise((resolve, reject) => {
-            request.get(`${exports.apiEndpoint}${url}`, { json: true }, (err, response) => {
+            request.get(`${apiEndpoint}${url}`, { json: true }, (err, response) => {
                 if (err)
                     return reject(err);
                 resolve(response.body);
@@ -21,13 +21,11 @@ class Search {
         return Common.apiQuery(`/search/people?q=${query}`);
     }
 }
-exports.Search = Search;
 class SingleSearch {
     shows(query) {
         return Common.apiQuery(`/singlesearch/shows?q=${query}`);
     }
 }
-exports.SingleSearch = SingleSearch;
 class Lookup {
     constructor() {
         this.shows = class {
@@ -46,7 +44,6 @@ class Lookup {
         };
     }
 }
-exports.Lookup = Lookup;
 class Shows {
     get(id, embeded) {
         let queryString = `/shows/${id}`;
@@ -98,7 +95,6 @@ class Shows {
         return Common.apiQuery(`/updates/shows`);
     }
 }
-exports.Shows = Shows;
 class People {
     get(id) {
         return Common.apiQuery(`/people/${id}`);
@@ -110,7 +106,6 @@ class People {
         return Common.apiQuery(`/people/${id}/crewcredits`);
     }
 }
-exports.People = People;
 class TvMaze {
     constructor() {
         this.search = new Search();
@@ -131,5 +126,4 @@ class TvMaze {
         return Common.apiQuery('/schedule/full');
     }
 }
-exports.TvMaze = TvMaze;
 exports.default = new TvMaze();
