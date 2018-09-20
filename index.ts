@@ -140,5 +140,4 @@ class TvMaze {
 }
 
 const tvmaze = new TvMaze()
-
 export = tvmaze

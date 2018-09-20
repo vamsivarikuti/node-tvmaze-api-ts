@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tvmaze = require(".index");
+const tvmaze = require(".");
 tvmaze.search.shows('girls').then(result => {
     if (result[0].show) {
         console.log('👍 API::search::shows');

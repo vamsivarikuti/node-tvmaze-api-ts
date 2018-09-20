@@ -125,4 +125,5 @@ class TvMaze {
         return Common.apiQuery('/schedule/full');
     }
 }
-module.exports = new TvMaze();
+const tvmaze = new TvMaze();
+module.exports = tvmaze;
