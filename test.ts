@@ -1,4 +1,8 @@
-import * as tvmaze from '.'
+import { tvmaze, Tvmaze } from '.'
+
+class Mymaze extends Tvmaze {
+
+}
 
 tvmaze.search.shows('girls').then(result => {
   if (result[0].show) {

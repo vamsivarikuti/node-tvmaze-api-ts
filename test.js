@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tvmaze = require(".");
-tvmaze.search.shows('girls').then(result => {
+const _1 = require(".");
+_1.tvmaze.search.shows('girls').then(result => {
     if (result[0].show) {
         console.log('👍 API::search::shows');
     }
@@ -10,7 +10,7 @@ tvmaze.search.shows('girls').then(result => {
         debugger;
     }
 });
-tvmaze.search.people('lauren').then(result => {
+_1.tvmaze.search.people('lauren').then(result => {
     if (result[0].person) {
         console.log('👍 API::search::people');
     }
@@ -19,7 +19,7 @@ tvmaze.search.people('lauren').then(result => {
         debugger;
     }
 });
-tvmaze.singleSearch.shows('girls').then(result => {
+_1.tvmaze.singleSearch.shows('girls').then(result => {
     if (result.id) {
         console.log('👍 API::singleSearch::shows');
     }
@@ -28,7 +28,7 @@ tvmaze.singleSearch.shows('girls').then(result => {
         debugger;
     }
 });
-tvmaze.lookup.imdb('tt0944947').then(result => {
+_1.tvmaze.lookup.imdb('tt0944947').then(result => {
     if (result.id) {
         console.log('👍 API::lookup::shows');
     }
@@ -37,7 +37,7 @@ tvmaze.lookup.imdb('tt0944947').then(result => {
         debugger;
     }
 });
-tvmaze.fullSchedule().then(result => {
+_1.tvmaze.fullSchedule().then(result => {
     if (result[0].id) {
         console.log('👍 API::fullSchedule');
     }
@@ -46,7 +46,7 @@ tvmaze.fullSchedule().then(result => {
         debugger;
     }
 });
-tvmaze.schedule('US', '2014-12-01').then(result => {
+_1.tvmaze.schedule('US', '2014-12-01').then(result => {
     if (result[0].id) {
         console.log('👍 API::schedule');
     }
@@ -55,7 +55,7 @@ tvmaze.schedule('US', '2014-12-01').then(result => {
         debugger;
     }
 });
-tvmaze.people.get('1').then(result => {
+_1.tvmaze.people.get('1').then(result => {
     if (result.id) {
         console.log('👍 API::people');
     }
@@ -64,7 +64,7 @@ tvmaze.people.get('1').then(result => {
         debugger;
     }
 });
-tvmaze.shows.get('1').then(result => {
+_1.tvmaze.shows.get('1').then(result => {
     if (result.id) {
         console.log('👍 API::shows');
     }

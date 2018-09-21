@@ -3,14 +3,31 @@ download the module
 ```
 npm i tvmaze-api-ts
 ```
-include it in your projekt
+use it in your projekt
 
 ```js
 // node way
-const tvmaze = require('tvmaze-api-ts')
+const { tvmaze } = require('tvmaze-api-ts')
 
 // es6 way
-import * as tvmaze from 'tvmaze-api-ts'
+import { tvmaze } from 'tvmaze-api-ts'
+```
+
+want to extend the api with your own functions?
+no problem, just import the "Tvmaze" class.
+
+```js
+// node way
+const { tvmaze, Tvmaze } = require('tvmaze-api-ts')
+
+// es6 way
+import { tvmaze, Tvmaze } from 'tvmaze-api-ts'
+
+class Mymaze extends Tvmaze {
+  // code
+}
+
+const mymaze = new Mymaze()
 ```
 
 # Search

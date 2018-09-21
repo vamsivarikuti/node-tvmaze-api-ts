@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request");
 const apiEndpoint = 'https://api.tvmaze.com';
 class Common {
@@ -140,7 +141,7 @@ class People {
         return Common.apiQuery(queryString);
     }
 }
-class TvMaze {
+class Tvmaze {
     constructor() {
         this.search = new Search();
         this.singleSearch = new SingleSearch();
@@ -160,5 +161,5 @@ class TvMaze {
         return Common.apiQuery('/schedule/full');
     }
 }
-const tvmaze = new TvMaze();
-module.exports = tvmaze;
+exports.Tvmaze = Tvmaze;
+exports.tvmaze = new Tvmaze();

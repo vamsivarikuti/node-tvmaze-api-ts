@@ -154,7 +154,7 @@ class People {
   }
 }
 
-class TvMaze {
+export class Tvmaze {
   public search = new Search()
   public singleSearch = new SingleSearch()
   public lookup = new Lookup()
@@ -173,5 +173,4 @@ class TvMaze {
   }
 }
 
-const tvmaze = new TvMaze()
-export = tvmaze
+export const tvmaze = new Tvmaze()
