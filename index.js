@@ -1,11 +1,29 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request");
+const cheerio = require("cheerio");
 const apiEndpoint = 'https://api.tvmaze.com';
 class Common {
     static apiQuery(url) {
         return new Promise((resolve, reject) => {
             request.get(`${apiEndpoint}${url}`, { json: true }, (err, response) => {
+                if (err)
+                    return reject(err);
+                resolve(response.body);
+            });
+        });
+    }
+    static getHtml(url) {
+        return new Promise((resolve, reject) => {
+            request.get(url, (err, response) => {
                 if (err)
                     return reject(err);
                 resolve(response.body);
@@ -141,6 +159,15 @@ class People {
         return Common.apiQuery(queryString);
     }
 }
+class Scrape {
+    episodeTrailer(episodeUrl) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const html = yield Common.getHtml(episodeUrl);
+            const $ = cheerio.load(html);
+            return $('article#episode-video iframe')[0].attribs.src;
+        });
+    }
+}
 class Tvmaze {
     constructor() {
         this.search = new Search();
@@ -148,6 +175,7 @@ class Tvmaze {
         this.lookup = new Lookup();
         this.shows = new Shows();
         this.people = new People();
+        this.scrape = new Scrape();
     }
     schedule(country, date) {
         let queryString = '/schedule?';

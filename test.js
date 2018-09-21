@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = require(".");
 class Mymaze extends _1.Tvmaze {
 }
+_1.tvmaze.scrape.episodeTrailer('https://www.tvmaze.com/episodes/1445227/silicon-valley-5x08-fifty-one-percent').then(console.log);
 _1.tvmaze.search.shows('girls').then(result => {
     if (result[0].show) {
         console.log('👍 API::search::shows');

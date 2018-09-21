@@ -3,7 +3,7 @@ download the module
 ```
 npm i tvmaze-api-ts
 ```
-use it in your projekt
+useyar it in your projekt
 
 ```js
 // node way
@@ -30,8 +30,21 @@ class Mymaze extends Tvmaze {
 const mymaze = new Mymaze()
 ```
 
-# Search
+# Srape
 
+## Episode Trailer
+Scrape the episode youtube trailer link from the episode page.
+
+**example:**
+```js
+// (episodeUrl: string): Promise
+tvmaze.scrape.episodeTrailer('https://www.tvmaze.com/episodes/1445227/silicon-valley-5x08-fifty-one-percent')
+  .then(youtube => {
+    // code
+  })
+```
+
+# Search
 
 ## Show search
 Search through all the shows in our database by the show's name. A fuzzy algorithm is used (with a fuzziness value of 2), meaning that shows will be found even if your query contains small typos. Results are returned in order of relevancy (best matches on top) and contain each show's full information.

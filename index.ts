@@ -1,5 +1,8 @@
 import * as request from 'request'
+import * as cheerio from 'cheerio'
 import { Ishow, IshowSearch, Iepisode, Iseason, Icast, Icrew, Iaka, Iupdates, Iperson, Icastcredits, Icrewcredits } from 'index.d'
+import { resolve } from 'path'
+import { rejects } from 'assert'
 
 const apiEndpoint = 'https://api.tvmaze.com'
 
@@ -7,6 +10,14 @@ class Common {
   public static apiQuery (url: string): Promise<any> {
     return new Promise((resolve, reject) => {
       request.get(`${apiEndpoint}${url}`, { json: true }, (err, response) => {
+        if (err) return reject(err)
+        resolve(response.body)
+      })
+    })
+  }
+  public static getHtml (url: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      request.get(url, (err, response) => {
         if (err) return reject(err)
         resolve(response.body)
       })
@@ -154,12 +165,21 @@ class People {
   }
 }
 
+class Scrape {
+  public async episodeTrailer (episodeUrl: string) {
+    const html = await Common.getHtml(episodeUrl)
+    const $ = cheerio.load(html)
+    return $('article#episode-video iframe')[0].attribs.src
+  }
+}
+
 export class Tvmaze {
   public search = new Search()
   public singleSearch = new SingleSearch()
   public lookup = new Lookup()
   public shows = new Shows()
   public people = new People()
+  public scrape = new Scrape()
 
   public schedule (country?: string, date?: string) {
     let queryString = '/schedule?'
@@ -174,5 +194,3 @@ export class Tvmaze {
 }
 
 export const tvmaze = new Tvmaze()
-
-export * from 'index.d'
