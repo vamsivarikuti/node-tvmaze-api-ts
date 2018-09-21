@@ -107,16 +107,52 @@ class Shows {
 }
 
 class People {
-  public get (id: string) {
-    return Common.apiQuery(`/people/${id}`)
+  public get (id: string, embeded?: string | string[]) {
+    let queryString = `/people/${id}`
+    if (embeded) {
+      if (typeof embeded === typeof []) {
+        queryString += '?'
+        embeded = embeded as string[]
+        embeded.forEach(embed => {
+          queryString += `embed[]=${embed}&`
+        })
+      } else {
+        queryString += `?embed=${embeded}`
+      }
+    }
+    return Common.apiQuery(queryString)
   }
 
-  public castCredits (id: string) {
-    return Common.apiQuery(`/people/${id}/castcredits`) // TODO: Embed parameter!!
+  public castCredits (id: string, embeded?: string | string[]) {
+    let queryString = `/people/${id}/castcredits`
+    if (embeded) {
+      if (typeof embeded === typeof []) {
+        queryString += '?'
+        embeded = embeded as string[]
+        embeded.forEach(embed => {
+          queryString += `embed[]=${embed}&`
+        })
+      } else {
+        queryString += `?embed=${embeded}`
+      }
+    }
+    return Common.apiQuery(queryString)
   }
 
-  public crewCredits (id: string) {
-    return Common.apiQuery(`/people/${id}/crewcredits`)
+  public crewCredits (id: string, embeded?: string | string[]) {
+    let queryString = `/people/${id}/crewcredits`
+    if (embeded) {
+      if (typeof embeded === typeof []) {
+        queryString += '?'
+        embeded = embeded as string[]
+        embeded.forEach(embed => {
+          queryString += `embed[]=${embed}&`
+        })
+      } else {
+        queryString += `?embed=${embeded}`
+      }
+    }
+    return Common.apiQuery(queryString)
   }
 }
 

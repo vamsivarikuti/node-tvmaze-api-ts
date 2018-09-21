@@ -95,14 +95,53 @@ class Shows {
     }
 }
 class People {
-    get(id) {
-        return Common.apiQuery(`/people/${id}`);
+    get(id, embeded) {
+        let queryString = `/people/${id}`;
+        if (embeded) {
+            if (typeof embeded === typeof []) {
+                queryString += '?';
+                embeded = embeded;
+                embeded.forEach(embed => {
+                    queryString += `embed[]=${embed}&`;
+                });
+            }
+            else {
+                queryString += `?embed=${embeded}`;
+            }
+        }
+        return Common.apiQuery(queryString);
     }
-    castCredits(id) {
-        return Common.apiQuery(`/people/${id}/castcredits`);
+    castCredits(id, embeded) {
+        let queryString = `/people/${id}/castcredits`;
+        if (embeded) {
+            if (typeof embeded === typeof []) {
+                queryString += '?';
+                embeded = embeded;
+                embeded.forEach(embed => {
+                    queryString += `embed[]=${embed}&`;
+                });
+            }
+            else {
+                queryString += `?embed=${embeded}`;
+            }
+        }
+        return Common.apiQuery(queryString);
     }
-    crewCredits(id) {
-        return Common.apiQuery(`/people/${id}/crewcredits`);
+    crewCredits(id, embeded) {
+        let queryString = `/people/${id}/crewcredits`;
+        if (embeded) {
+            if (typeof embeded === typeof []) {
+                queryString += '?';
+                embeded = embeded;
+                embeded.forEach(embed => {
+                    queryString += `embed[]=${embed}&`;
+                });
+            }
+            else {
+                queryString += `?embed=${embeded}`;
+            }
+        }
+        return Common.apiQuery(queryString);
     }
 }
 class TvMaze {
