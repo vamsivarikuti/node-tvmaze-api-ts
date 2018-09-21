@@ -112,7 +112,7 @@ class People {
   }
 
   public castCredits (id: string) {
-    return Common.apiQuery(`/people/${id}/castcredits`)
+    return Common.apiQuery(`/people/${id}/castcredits`) // TODO: Embed parameter!!
   }
 
   public crewCredits (id: string) {

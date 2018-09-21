@@ -10,7 +10,7 @@ include it in your projekt
 const tvmaze = require('tvmaze-api-ts')
 
 // es6 way
-import * as tvmaze from '.'
+import * as tvmaze from 'tvmaze-api-ts'
 ```
 
 # Search
@@ -64,7 +64,7 @@ tvmaze.lookup.shows.tvrage('24493').then(result => {
 # Shows
 
 ## Show main information
-Retrieve all primary information for a given show. This endpoint allows embedding of additional information. See the section embedding for more information.
+Retrieve all primary information for a given show. This endpoint allows embedding of additional information. See the section [embedding](#embedding) for more information.
 
 **example:**
 ```js
@@ -209,3 +209,99 @@ tvmaze.shows.updates().then(result => {
   // code
 })
 ```
+
+# People
+
+## Person main information
+Retrieve all primary information for a given person. This endpoint allows embedding of additional information. See the section [embedding](#embedding) for more information.
+
+**example:**
+```js
+// (id: string): Promise
+tvmaze.people.get('1').then(result => {
+  // code
+})
+```
+
+## Person cast credits
+Retrieve all (show-level) cast credits for a person. A cast credit is a combination of both a show and a character. By default, only a reference to each show and character will be returned. However, this endpoint supports embedding, which means full information for the shows and characters can be included.
+
+**example:**
+```js
+// (id: string): Promise
+tvmaze.people.castCredits('1').then(result => {
+  // code
+})
+```
+
+## Person crew credits
+Retrieve all (show-level) crew credits for a person. A crew credit is combination of both a show and a crew type. By default, only a reference to each show will be returned. However, this endpoint supports embedding, which means full information for the shows can be included.
+
+**example:**
+```js
+// (id: string): Promise
+tvmaze.people.crewCredits('1').then(result => {
+  // code
+})
+```
+
+# Schedule
+The schedule is a complete list of episodes that air in a given country on a given date. Episodes are returned in the order in which they are aired, and full information about the episode and the corresponding show is included.
+
+Note that contrary to what you might expect, the ISO country code for the United Kingdom is not UK, but GB.
+
+- (optional) countrycode: an ISO 3166-1 code of the country; defaults to US
+- (optional) date: an ISO 8601 formatted date; defaults to the current day
+
+**example:**
+```js
+// (country?: string, date?: string): Promise
+tvmaze.schedule().then(result => {
+  // code
+})
+
+// (country?: string, date?: string): Promise
+tvmaze.schedule('US', '2014-12-01').then(result => {
+  // code
+})
+```
+
+## Full schedule
+The full schedule is a list of all future episodes known to TVmaze, regardless of their country. Be advised that this endpoint's response is at least several MB large. As opposed to the other endpoints, results are cached for 24 hours.
+
+**example:**
+```js
+// (country?: string, date?: string): Promise
+tvmaze.fullSchedule().then(result => {
+  // code
+})
+```
+
+# Embedding
+As defined by the [HAL](http://stateless.co/hal_specification.html) convention, our API resources can contain links to related URLs. These URLs can refer to either a collection (like a list of episodes), or to an individual resource (like an episode). References to an individual resource are always advertised in the model's _links, for example as a show's _links.previousepisode or a cast credit's _links.character. References to collections are not actively advertised in the _links output, but are documented here. Both types of links can be embedded in the response by using the embed query parameter.
+
+For example, `tvmaze.shows.get('1', 'episodes')` will serve the show's main information and its episode list in one single response. `tvmaze.shows.get('1', 'nextepisode')` would embed the details of that show's upcoming episode in the response, but only if one such episode currently exists. Embedding multiple links is possible with the array syntax: `tvmaze.shows.get('1', ['episodes', 'cast'])`
+
+# Images
+Most resources available in the API have an image property that refers to that item's primary image. For shows, people and characters this is an image in poster format; for episodes the image is in landscape format. If an image exists, the image property will be a dictionary containing a "medium" and "original" key, referring to the image in fixed resized dimensions or in the original uploaded resolution. If no image exists yet, the image property will be NULL.
+
+You are free to directly link ("hotlink") to our image CDN. However, for performance reasons we recommend to cache the images on your end: on your own server in case of a web application, or on the client in case of a desktop/mobile app. Images can safely be cached indefinitely: on our end the content of a specific image URL will never change; if an item's primary image changes, the item's image URL will change instead.
+
+# HTTPS
+All endpoints are accessible using encrypted HTTPS as well, for example: https://api.tvmaze.com/shows/1. Links embedded in the API response - to other API endpoints or to our image CDN - will be returned as HTTP regardless, but can all be accessed using HTTPS if you manually change the URL's scheme to HTTPS.
+
+# Caching
+All output is cached by our HTTP load balancers for 60 minutes, so when information is updated on the site, please allow up to 1 hour for the changes to propagate to the API.
+
+# Rate limiting
+API calls are rate limited to allow at least 20 calls every 10 seconds per IP address. If you exceed this rate, you might receive an HTTP 429 error. We say at least, because rate limiting takes place on the backend but not on the edge cache. So if your client is only requesting common/popular endpoints like shows or episodes (as opposed to more unique endpoints like searches or embedding), you're likely to never hit the limit. For an optimal throughput, simply let your client back off for a few seconds when it receives a 429.
+
+Under special circumstances we may temporarily have to impose a stricter rate limit. So even if your client wouldn't normally exceed our rate limit, it's useful to gracefully handle HTTP 429 responses: simply retry the request after a small pause instead of treating it as a permanent failure.
+
+While not required, we strongly recommend setting your client's HTTP User Agent to something that'll uniquely describe it. This allows us to identify your application in case of problems, or to proactively reach out to you.
+
+# CORS
+All endpoints are [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) (Cross-origin resource sharing) enabled, which means our API can be used directly in web applications without having to resort to JSONP or HTTP proxying.
+
+# Licensing
+Use of the TVmaze API is licensed by [CC BY-SA](http://creativecommons.org/licenses/by-sa/4.0/). This means the data can freely be used for any purpose, as long as TVmaze is properly credited as source and your application complies with the ShareAlike provision. You can satisfy the attribution requirement by linking back to TVmaze from within your application or website, for example using the URLs available in the API.
