@@ -1,5 +1,5 @@
 import * as request from 'request'
-import { IlookupShows } from 'index.d'
+import { Ishow, IshowSearch, Iepisode, Iseason, Icast, Icrew, Iaka, Iupdates, Iperson, Icastcredits, Icrewcredits } from 'index.d'
 
 const apiEndpoint = 'https://api.tvmaze.com'
 
@@ -15,7 +15,7 @@ class Common {
 }
 
 class Search {
-  public shows (query: string) {
+  public shows (query: string): Promise<IshowSearch[]> {
     return Common.apiQuery(`/search/shows?q=${query}`)
   }
   public people (query: string) {
@@ -24,30 +24,28 @@ class Search {
 }
 
 class SingleSearch {
-  public shows (query: string) {
+  public shows (query: string): Promise<Ishow> {
     return Common.apiQuery(`/singlesearch/shows?q=${query}`)
   }
 }
 
 class Lookup {
-  public shows: IlookupShows = class {
-    public static imdb (imdbId: string) {
-      return Common.apiQuery(`/lookup/shows?imdb=${imdbId}`)
-    }
-    public static thetvdb (thetvdbId: string) {
-      return Common.apiQuery(`/lookup/shows?thetvdb=${thetvdbId}`)
-    }
-    public static tvrage (tvrageId: string) {
-      return Common.apiQuery(`/lookup/shows?tvrage=${tvrageId}`)
-    }
-    public static tvmaze (tvmazeId: string) {
-      return Common.apiQuery(`/shows/${tvmazeId}`)
-    }
+  public imdb (imdbId: string): Promise<Ishow> {
+    return Common.apiQuery(`/lookup/shows?imdb=${imdbId}`)
+  }
+  public thetvdb (thetvdbId: string): Promise<Ishow> {
+    return Common.apiQuery(`/lookup/shows?thetvdb=${thetvdbId}`)
+  }
+  public tvrage (tvrageId: string): Promise<Ishow> {
+    return Common.apiQuery(`/lookup/shows?tvrage=${tvrageId}`)
+  }
+  public tvmaze (tvmazeId: string): Promise<Ishow> {
+    return Common.apiQuery(`/shows/${tvmazeId}`)
   }
 }
 
 class Shows {
-  public get (id: string, embeded?: string | string[]) {
+  public get (id: string, embeded?: string | string[]): Promise<Ishow> {
     let queryString = `/shows/${id}`
     if (embeded) {
       if (typeof embeded === typeof []) {
@@ -63,51 +61,51 @@ class Shows {
     return Common.apiQuery(queryString)
   }
 
-  public episodes (id: string, specials?: boolean) {
+  public episodes (id: string, specials?: boolean): Promise<Iepisode[]> {
     let queryString = `shows/${id}/episodes`
     if (specials) queryString += '?specials=1'
     return Common.apiQuery(queryString)
   }
 
-  public episodebynumber (id: string, season: string, episode: string) {
+  public episodebynumber (id: string, season: string, episode: string): Promise<Iepisode> {
     return Common.apiQuery(`/shows/${id}/episodebynumber?season=${season}&number=${episode}`)
   }
 
-  public episodesbydate (id: string, date: string) {
+  public episodesbydate (id: string, date: string): Promise<Iepisode> {
     return Common.apiQuery(`/shows/${id}/episodesbydate?date=${date}`)
   }
 
-  public seasons (id: string) {
+  public seasons (id: string): Promise<Iseason[]> {
     return Common.apiQuery(`/shows/${id}/seasons`)
   }
 
-  public seasonEpisodes (seasonId: string) {
+  public seasonEpisodes (seasonId: string): Promise<Iepisode[]> {
     return Common.apiQuery(`/seasons/${seasonId}/episodes`)
   }
 
-  public cast (id: string) {
+  public cast (id: string): Promise<Icast[]> {
     return Common.apiQuery(`/shows/${id}/cast`)
   }
 
-  public crew (id: string) {
+  public crew (id: string): Promise<Icrew[]> {
     return Common.apiQuery(`/shows/${id}/crew`)
   }
 
-  public akas (id: string) {
+  public akas (id: string): Promise<Iaka[]> {
     return Common.apiQuery(`/shows/${id}/akas`)
   }
 
-  public page (page?: string) {
+  public page (page?: string): Promise<Ishow[]> {
     return Common.apiQuery(`/shows?page=${page || ''}`)
   }
 
-  public updates () {
+  public updates (): Promise<Iupdates> {
     return Common.apiQuery(`/updates/shows`)
   }
 }
 
 class People {
-  public get (id: string, embeded?: string | string[]) {
+  public get (id: string, embeded?: string | string[]): Promise<Iperson> {
     let queryString = `/people/${id}`
     if (embeded) {
       if (typeof embeded === typeof []) {
@@ -123,7 +121,7 @@ class People {
     return Common.apiQuery(queryString)
   }
 
-  public castCredits (id: string, embeded?: string | string[]) {
+  public castCredits (id: string, embeded?: string | string[]): Promise<Icastcredits[]> {
     let queryString = `/people/${id}/castcredits`
     if (embeded) {
       if (typeof embeded === typeof []) {
@@ -139,7 +137,7 @@ class People {
     return Common.apiQuery(queryString)
   }
 
-  public crewCredits (id: string, embeded?: string | string[]) {
+  public crewCredits (id: string, embeded?: string | string[]): Promise<Icrewcredits[]> {
     let queryString = `/people/${id}/crewcredits`
     if (embeded) {
       if (typeof embeded === typeof []) {

@@ -46,17 +46,17 @@ If you already know a show's tvrage, thetvdb or IMDB ID, you can use this endpoi
 **example:**
 ```js
 // (imdbId: string): Promise
-tvmaze.lookup.shows.imdb('tt0944947').then(result => {
+tvmaze.lookup.imdb('tt0944947').then(result => {
   // code
 })
 
 // (thetvdbId: string): Promise
-tvmaze.lookup.shows.thetvdb('81189').then(result => {
+tvmaze.lookup.thetvdb('81189').then(result => {
   // code
 })
 
 // (tvrageId: string): Promise
-tvmaze.lookup.shows.tvrage('24493').then(result => {
+tvmaze.lookup.tvrage('24493').then(result => {
   // code
 })
 ```
