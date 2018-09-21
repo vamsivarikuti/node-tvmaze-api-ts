@@ -4,7 +4,7 @@
   "description": "node.js tvmaze api wrapper written in typescript",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test"
   },
   "author": "undefined",
   "homepage": "https://github.com/JohnDeved/node-tvmaze-api-ts",

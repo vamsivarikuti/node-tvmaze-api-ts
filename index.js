@@ -26,21 +26,17 @@ class SingleSearch {
     }
 }
 class Lookup {
-    constructor() {
-        this.shows = class {
-            static imdb(imdbId) {
-                return Common.apiQuery(`/lookup/shows?imdb=${imdbId}`);
-            }
-            static thetvdb(thetvdbId) {
-                return Common.apiQuery(`/lookup/shows?thetvdb=${thetvdbId}`);
-            }
-            static tvrage(tvrageId) {
-                return Common.apiQuery(`/lookup/shows?tvrage=${tvrageId}`);
-            }
-            static tvmaze(tvmazeId) {
-                return Common.apiQuery(`/shows/${tvmazeId}`);
-            }
-        };
+    imdb(imdbId) {
+        return Common.apiQuery(`/lookup/shows?imdb=${imdbId}`);
+    }
+    thetvdb(thetvdbId) {
+        return Common.apiQuery(`/lookup/shows?thetvdb=${thetvdbId}`);
+    }
+    tvrage(tvrageId) {
+        return Common.apiQuery(`/lookup/shows?tvrage=${tvrageId}`);
+    }
+    tvmaze(tvmazeId) {
+        return Common.apiQuery(`/shows/${tvmazeId}`);
     }
 }
 class Shows {

@@ -28,7 +28,7 @@ tvmaze.singleSearch.shows('girls').then(result => {
         debugger;
     }
 });
-tvmaze.lookup.shows.imdb('tt0944947').then(result => {
+tvmaze.lookup.imdb('tt0944947').then(result => {
     if (result.id) {
         console.log('👍 API::lookup::shows');
     }
