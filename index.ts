@@ -174,3 +174,5 @@ export class Tvmaze {
 }
 
 export const tvmaze = new Tvmaze()
+
+export * from 'index.d'
