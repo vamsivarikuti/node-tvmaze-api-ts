@@ -217,8 +217,13 @@ Retrieve all primary information for a given person. This endpoint allows embedd
 
 **example:**
 ```js
-// (id: string): Promise
+// (id: string, embeded?: string | string[]): Promise: Promise
 tvmaze.people.get('1').then(result => {
+  // code
+})
+
+// (id: string, embeded?: string | string[]): Promise: Promise
+tvmaze.people.get('1', 'castcredits').then(result => {
   // code
 })
 ```
@@ -228,8 +233,13 @@ Retrieve all (show-level) cast credits for a person. A cast credit is a combinat
 
 **example:**
 ```js
-// (id: string): Promise
+// (id: string, embeded?: string | string[]): Promise: Promise
 tvmaze.people.castCredits('1').then(result => {
+  // code
+})
+
+// (id: string, embeded?: string | string[]): Promise: Promise
+tvmaze.people.castCredits('1', 'show').then(result => {
   // code
 })
 ```
@@ -239,8 +249,13 @@ Retrieve all (show-level) crew credits for a person. A crew credit is combinatio
 
 **example:**
 ```js
-// (id: string): Promise
+// (id: string, embeded?: string | string[]): Promise: Promise
 tvmaze.people.crewCredits('1').then(result => {
+  // code
+})
+
+// (id: string, embeded?: string | string[]): Promise: Promise
+tvmaze.people.crewCredits('1', 'show').then(result => {
   // code
 })
 ```
@@ -271,7 +286,7 @@ The full schedule is a list of all future episodes known to TVmaze, regardless o
 
 **example:**
 ```js
-// (country?: string, date?: string): Promise
+// (): Promise
 tvmaze.fullSchedule().then(result => {
   // code
 })
