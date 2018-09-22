@@ -146,7 +146,7 @@ interface IshowSearch {
 }
 declare class Search {
     shows(query: string): Promise<IshowSearch[]>;
-    people(query: string): Promise<any>;
+    people(query: string): Promise<{}>;
 }
 declare class SingleSearch {
     shows(query: string): Promise<Ishow>;
@@ -185,8 +185,8 @@ export declare class Tvmaze {
     shows: Shows;
     people: People;
     scrape: Scrape;
-    schedule(country?: string, date?: string): Promise<any>;
-    fullSchedule(): Promise<any>;
+    schedule(country?: string, date?: string): Promise<{}>;
+    fullSchedule(): Promise<{}>;
 }
 export declare const tvmaze: Tvmaze;
 export {};

@@ -173,7 +173,7 @@ interface IshowSearch {
 const apiEndpoint = 'https://api.tvmaze.com'
 
 class Common {
-  public static apiQuery (url: string): Promise<any> {
+  public static apiQuery<T> (url: string): Promise<T> {
     return new Promise((resolve, reject) => {
       request.get(`${apiEndpoint}${url}`, { json: true }, (err, response) => {
         if (err) return reject(err)
@@ -181,7 +181,7 @@ class Common {
       })
     })
   }
-  public static getHtml (url: string): Promise<any> {
+  public static getHtml<T> (url: string): Promise<T> {
     return new Promise((resolve, reject) => {
       request.get(url, (err, response) => {
         if (err) return reject(err)
@@ -207,22 +207,22 @@ class SingleSearch {
 }
 
 class Lookup {
-  public imdb (imdbId: string): Promise<Ishow> {
-    return Common.apiQuery(`/lookup/shows?imdb=${imdbId}`)
+  public imdb (imdbId: string) {
+    return Common.apiQuery<Ishow>(`/lookup/shows?imdb=${imdbId}`)
   }
-  public thetvdb (thetvdbId: string): Promise<Ishow> {
-    return Common.apiQuery(`/lookup/shows?thetvdb=${thetvdbId}`)
+  public thetvdb (thetvdbId: string) {
+    return Common.apiQuery<Ishow>(`/lookup/shows?thetvdb=${thetvdbId}`)
   }
-  public tvrage (tvrageId: string): Promise<Ishow> {
-    return Common.apiQuery(`/lookup/shows?tvrage=${tvrageId}`)
+  public tvrage (tvrageId: string) {
+    return Common.apiQuery<Ishow>(`/lookup/shows?tvrage=${tvrageId}`)
   }
-  public tvmaze (tvmazeId: string): Promise<Ishow> {
-    return Common.apiQuery(`/shows/${tvmazeId}`)
+  public tvmaze (tvmazeId: string) {
+    return Common.apiQuery<Ishow>(`/shows/${tvmazeId}`)
   }
 }
 
 class Shows {
-  public get (id: string, embeded?: string | string[]): Promise<Ishow> {
+  public get (id: string, embeded?: string | string[]) {
     let queryString = `/shows/${id}`
     if (embeded) {
       if (typeof embeded === typeof []) {
@@ -235,54 +235,54 @@ class Shows {
         queryString += `?embed=${embeded}`
       }
     }
-    return Common.apiQuery(queryString)
+    return Common.apiQuery<Ishow>(queryString)
   }
 
-  public episodes (id: string, specials?: boolean): Promise<Iepisode[]> {
+  public episodes (id: string, specials?: boolean) {
     let queryString = `shows/${id}/episodes`
     if (specials) queryString += '?specials=1'
-    return Common.apiQuery(queryString)
+    return Common.apiQuery<Iepisode[]>(queryString)
   }
 
-  public episodebynumber (id: string, season: string, episode: string): Promise<Iepisode> {
-    return Common.apiQuery(`/shows/${id}/episodebynumber?season=${season}&number=${episode}`)
+  public episodebynumber (id: string, season: string, episode: string) {
+    return Common.apiQuery<Iepisode>(`/shows/${id}/episodebynumber?season=${season}&number=${episode}`)
   }
 
-  public episodesbydate (id: string, date: string): Promise<Iepisode> {
-    return Common.apiQuery(`/shows/${id}/episodesbydate?date=${date}`)
+  public episodesbydate (id: string, date: string) {
+    return Common.apiQuery<Iepisode>(`/shows/${id}/episodesbydate?date=${date}`)
   }
 
-  public seasons (id: string): Promise<Iseason[]> {
-    return Common.apiQuery(`/shows/${id}/seasons`)
+  public seasons (id: string) {
+    return Common.apiQuery<Iseason[]>(`/shows/${id}/seasons`)
   }
 
-  public seasonEpisodes (seasonId: string): Promise<Iepisode[]> {
-    return Common.apiQuery(`/seasons/${seasonId}/episodes`)
+  public seasonEpisodes (seasonId: string) {
+    return Common.apiQuery<Iepisode[]>(`/seasons/${seasonId}/episodes`)
   }
 
-  public cast (id: string): Promise<Icast[]> {
-    return Common.apiQuery(`/shows/${id}/cast`)
+  public cast (id: string) {
+    return Common.apiQuery<Icast[]>(`/shows/${id}/cast`)
   }
 
-  public crew (id: string): Promise<Icrew[]> {
-    return Common.apiQuery(`/shows/${id}/crew`)
+  public crew (id: string) {
+    return Common.apiQuery<Icrew[]>(`/shows/${id}/crew`)
   }
 
-  public akas (id: string): Promise<Iaka[]> {
-    return Common.apiQuery(`/shows/${id}/akas`)
+  public akas (id: string) {
+    return Common.apiQuery<Iaka[]>(`/shows/${id}/akas`)
   }
 
-  public page (page?: string): Promise<Ishow[]> {
-    return Common.apiQuery(`/shows?page=${page || ''}`)
+  public page (page?: string) {
+    return Common.apiQuery<Ishow[]>(`/shows?page=${page || ''}`)
   }
 
-  public updates (): Promise<Iupdates> {
-    return Common.apiQuery(`/updates/shows`)
+  public updates () {
+    return Common.apiQuery<Iupdates>(`/updates/shows`)
   }
 }
 
 class People {
-  public get (id: string, embeded?: string | string[]): Promise<Iperson> {
+  public get (id: string, embeded?: string | string[]) {
     let queryString = `/people/${id}`
     if (embeded) {
       if (typeof embeded === typeof []) {
@@ -295,10 +295,10 @@ class People {
         queryString += `?embed=${embeded}`
       }
     }
-    return Common.apiQuery(queryString)
+    return Common.apiQuery<Iperson>(queryString)
   }
 
-  public castCredits (id: string, embeded?: string | string[]): Promise<Icastcredits[]> {
+  public castCredits (id: string, embeded?: string | string[]) {
     let queryString = `/people/${id}/castcredits`
     if (embeded) {
       if (typeof embeded === typeof []) {
@@ -311,10 +311,10 @@ class People {
         queryString += `?embed=${embeded}`
       }
     }
-    return Common.apiQuery(queryString)
+    return Common.apiQuery<Icastcredits[]>(queryString)
   }
 
-  public crewCredits (id: string, embeded?: string | string[]): Promise<Icrewcredits[]> {
+  public crewCredits (id: string, embeded?: string | string[]) {
     let queryString = `/people/${id}/crewcredits`
     if (embeded) {
       if (typeof embeded === typeof []) {
@@ -327,13 +327,13 @@ class People {
         queryString += `?embed=${embeded}`
       }
     }
-    return Common.apiQuery(queryString)
+    return Common.apiQuery<Icrewcredits[]>(queryString)
   }
 }
 
 class Scrape {
   public async episodeTrailer (episodeUrl: string) {
-    const html = await Common.getHtml(episodeUrl)
+    const html = await Common.getHtml<string>(episodeUrl)
     const $ = cheerio.load(html)
     return $('article#episode-video iframe')[0].attribs.src
   }
