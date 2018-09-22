@@ -1,6 +1,6 @@
 {
   "name": "tvmaze-api-ts",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "node.js tvmaze scraper and api wrapper written in typescript",
   "main": "index.js",
   "types": "index.d.ts",
