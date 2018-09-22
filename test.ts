@@ -1,4 +1,4 @@
-import { tvmaze, Tvmaze } from '.'
+import { tvmaze, Tvmaze } from './index'
 
 class Mymaze extends Tvmaze {
 
