@@ -30,6 +30,11 @@ class Mymaze extends Tvmaze {
 const mymaze = new Mymaze()
 ```
 
+## made with ♥️ and typescript.
+I added complete typing support for all api json returns.
+
+![](https://i.imgur.com/jT0M8hc.png)
+
 # Srape
 
 ## Episode Trailer
