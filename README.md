@@ -3,7 +3,7 @@ download the module
 ```
 npm i tvmaze-api-ts
 ```
-useyar it in your projekt
+use it in your projekt
 
 ```js
 // node way
