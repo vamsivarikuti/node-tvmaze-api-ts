@@ -76,7 +76,7 @@ class Shows {
         return Common.apiQuery(queryString);
     }
     episodes(id, specials) {
-        let queryString = `shows/${id}/episodes`;
+        let queryString = `/shows/${id}/episodes`;
         if (specials)
             queryString += '?specials=1';
         return Common.apiQuery(queryString);
