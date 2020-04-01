@@ -239,7 +239,7 @@ class Shows {
   }
 
   public episodes (id: string, specials?: boolean) {
-    let queryString = `shows/${id}/episodes`
+    let queryString = `/shows/${id}/episodes`
     if (specials) queryString += '?specials=1'
     return Common.apiQuery<Iepisode[]>(queryString)
   }
