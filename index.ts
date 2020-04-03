@@ -1,58 +1,56 @@
 import * as request from 'request'
 import * as cheerio from 'cheerio'
-import { resolve } from 'path'
-import { rejects } from 'assert'
 
-interface Ischedule {
+export interface Ischedule {
   time: string
   days: string[]
 }
 
-interface Iratring {
+export interface Iratring {
   average: number
 }
 
-interface Icountry {
+export interface Icountry {
   name: string
   code: string
   timezone: string
 }
 
-interface Inetwork {
+export interface Inetwork {
   id: number
   names: string
   country: Icountry
 }
 
-interface Iexternals {
+export interface Iexternals {
   tvrage: number
   thetvdb: number
   imdb: string
 }
 
-interface Iimage {
+export interface Iimage {
   medium: string
   original: string
 }
 
-interface Iself {
+export interface Iself {
   href: string
 }
 
-interface Ipreviousepisode extends Iself {}
+export interface Ipreviousepisode extends Iself {}
 
-interface IshowLink extends Iself {}
+export interface IshowLink extends Iself {}
 
-interface IcharacterLink extends Iself {}
+export interface IcharacterLink extends Iself {}
 
-interface I_links {
+export interface I_links {
   self?: Iself
   previousepisode?: Ipreviousepisode
   show?: IshowLink
   character?: IcharacterLink
 }
 
-interface I_embedded {
+export interface I_embedded {
   show?: Ishow
   seasons?: Iseason[]
   episodes?: Iepisode[]
@@ -63,21 +61,21 @@ interface I_embedded {
   akas?: Iaka[]
 }
 
-interface Iaka {
+export interface Iaka {
   name: string
   country: Icountry
 }
 
-interface Icrewcredits {
+export interface Icrewcredits {
   type: string
   _links: I_links
 }
 
-interface Icastcredits {
+export interface Icastcredits {
   _links: I_links
 }
 
-interface Iepisode {
+export interface Iepisode {
   id: number
   url: string
   name: string
@@ -92,7 +90,7 @@ interface Iepisode {
   _links: I_links
 }
 
-interface Iseason {
+export interface Iseason {
   id: number
   url: string
   number: number
@@ -107,11 +105,11 @@ interface Iseason {
   _links: I_links
 }
 
-interface Iupdates {
+export interface Iupdates {
   [key: number]: number
 }
 
-interface Iperson {
+export interface Iperson {
   id: number
   url: string
   country: Icountry
@@ -121,7 +119,7 @@ interface Iperson {
   _links: I_links
 }
 
-interface Icharacter {
+export interface Icharacter {
   id: number
   url: string
   name: string
@@ -129,19 +127,19 @@ interface Icharacter {
   _links: I_links
 }
 
-interface Icast {
+export interface Icast {
   person: Iperson
   character: Icharacter
   self: boolean
   voice: boolean
 }
 
-interface Icrew {
+export interface Icrew {
   type: string
   person: Iperson
 }
 
-interface Ishow {
+export interface Ishow {
   id: number
   url: string
   name: string
@@ -165,7 +163,7 @@ interface Ishow {
   _embedded: I_embedded
 }
 
-interface IshowSearch {
+export interface IshowSearch {
   score: number
   show: Ishow
 }
@@ -335,7 +333,7 @@ class Scrape {
   public async episodeTrailer (episodeUrl: string) {
     const html = await Common.getHtml<string>(episodeUrl)
     const $ = cheerio.load(html)
-    return $('article#episode-video iframe')[0].attribs.src
+    return $('article#episode-video iframe')[0]?.attribs?.src
   }
 }
 
