@@ -6,7 +6,7 @@ export interface Ischedule {
   days: string[]
 }
 
-export interface Iratring {
+export interface Irating {
   average: number
 }
 
@@ -151,7 +151,7 @@ export interface Ishow {
   premiered: string
   officialSite: string
   schedule: Ischedule
-  ratring: Iratring
+  rating: Irating
   weight: number
   netwoek: Inetwork
   webChannel: string | null
